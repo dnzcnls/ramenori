@@ -1,29 +1,33 @@
 <section class="section gallery" id="gallery">
   <div class="wrap">
+
     <div class="section-head is-centered reveal">
       <span class="eyebrow is-centered">
-        {{ section.settings.eyebrow }}
+        {{ section.settings.eyebrow | default: 'Photos' }}
       </span>
       <h2 class="h-lg">
-        {{ section.settings.heading }}
+        {{ section.settings.heading | default: 'A Taste of the Table' }}
       </h2>
     </div>
 
-    <div class="gallery-grid reveal">
+    <div class="gallery-grid">
       {%- for block in section.blocks -%}
-        <div class="gallery-item{% if block.settings.size != blank %} {{ block.settings.size }}{% endif %}" {{ block.shopify_attributes }}>
+        <div class="gallery-item" {{ block.shopify_attributes }}>
+          
           {%- if block.settings.image != blank -%}
-            <img
-              src="{{ block.settings.image | image_url }}"
-              alt="{{ block.settings.alt | escape }}"
+            <img 
+              src="{{ block.settings.image | image_url: width: 800 }}" 
+              alt="{{ block.settings.title | default: 'Gallery image' }}" 
               loading="lazy"
+              width="800"
+              height="600"
             >
-          {%- else -%}
-            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
           {%- endif -%}
+
         </div>
       {%- endfor -%}
     </div>
+
   </div>
 </section>
 
@@ -53,36 +57,11 @@
           "type": "image_picker",
           "id": "image",
           "label": "Image"
-        },
-        {
-          "type": "text",
-          "id": "alt",
-          "label": "Alt text",
-          "default": "Gallery image"
-        },
-        {
-          "type": "select",
-          "id": "size",
-          "label": "Size",
-          "default": "",
-          "options": [
-            {
-              "value": "",
-              "label": "Normal"
-            },
-            {
-              "value": "tall",
-              "label": "Tall"
-            },
-            {
-              "value": "wide",
-              "label": "Wide"
-            }
-          ]
         }
       ]
     }
   ],
+  "max_blocks": 12,
   "presets": [
     {
       "name": "Gallery",
