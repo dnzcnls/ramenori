@@ -9,21 +9,13 @@
       </h2>
     </div>
 
-    <div class="gallery-grid reveal">
-      {%- for block in section.blocks -%}
-        <div class="gallery-item{% if block.settings.size != blank %} {{ block.settings.size }}{% endif %}" {{ block.shopify_attributes }}>
-          {%- if block.settings.image != blank -%}
-            <img
-              src="{{ block.settings.image | image_url }}"
-              alt="{{ block.settings.alt | escape }}"
-              loading="lazy"
-            >
-          {%- else -%}
-            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
-          {%- endif -%}
-        </div>
-      {%- endfor -%}
+<div class="gallery-grid">
+  {% for block in section.blocks %}
+    <div {{ block.shopify_attributes }}>
+      <p>Block {{ forloop.index }}</p>
     </div>
+  {% endfor %}
+</div>
   </div>
 </section>
 
