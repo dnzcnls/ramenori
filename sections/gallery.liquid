@@ -1,17 +1,28 @@
+```liquid
 <section class="section gallery" id="gallery">
   <div class="wrap">
     <div class="section-head is-centered reveal">
-      <span class="eyebrow is-centered">{{ section.settings.eyebrow | default: 'Photos' }}</span>
-      <h2 class="h-lg">{{ section.settings.heading | default: 'A Taste of the Table' }}</h2>
+      <span class="eyebrow is-centered">
+        {{ section.settings.eyebrow | default: 'Photos' }}
+      </span>
+      <h2 class="h-lg">
+        {{ section.settings.heading | default: 'A Taste of the Table' }}
+      </h2>
     </div>
 
     <div class="gallery-grid reveal">
       {%- for block in section.blocks -%}
         <div class="gallery-item {{ block.settings.size }}" {{ block.shopify_attributes }}>
           {%- if block.settings.image != blank -%}
-            <img src="{{ block.settings.image | image_url: width: 900 }}" alt="{{ block.settings.alt | default: 'Ramenori dish' }}" loading="lazy" width="900" height="600">
-          {%- elsif block.settings.image_asset != blank -%}
-            <img src="{{ block.settings.image_asset | asset_url }}" alt="{{ block.settings.alt | default: 'Ramenori dish' }}" loading="lazy" width="900" height="600">
+            <img
+              src="{{ block.settings.image | image_url: width: 900 }}"
+              alt="{{ block.settings.alt | escape }}"
+              loading="lazy"
+              width="900"
+              height="600"
+            >
+          {%- else -%}
+            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
           {%- endif -%}
         </div>
       {%- endfor -%}
@@ -23,22 +34,55 @@
 {
   "name": "Gallery",
   "settings": [
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Photos" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "A Taste of the Table" }
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Photos"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "A Taste of the Table"
+    }
   ],
   "blocks": [
     {
       "type": "photo",
       "name": "Photo",
       "settings": [
-        { "type": "image_picker", "id": "image", "label": "Image" },
-        { "type": "text", "id": "image_asset", "label": "Asset filename (fallback)" },
-        { "type": "text", "id": "alt", "label": "Alt text" },
-        { "type": "select", "id": "size", "label": "Size", "default": "", "options": [
-          { "value": "", "label": "Normal" },
-          { "value": "tall", "label": "Tall" },
-          { "value": "wide", "label": "Wide" }
-        ] }
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "alt",
+          "label": "Alt Text",
+          "default": "Gallery Image"
+        },
+        {
+          "type": "select",
+          "id": "size",
+          "label": "Size",
+          "default": "",
+          "options": [
+            {
+              "value": "",
+              "label": "Normal"
+            },
+            {
+              "value": "tall",
+              "label": "Tall"
+            },
+            {
+              "value": "wide",
+              "label": "Wide"
+            }
+          ]
+        }
       ]
     }
   ],
@@ -46,16 +90,27 @@
     {
       "name": "Gallery",
       "blocks": [
-        { "type": "photo", "settings": { "image_asset": "interior.jpg", "alt": "Izakaya interior", "size": "wide" } },
-        { "type": "photo", "settings": { "image_asset": "dish-sushi-platter.jpg", "alt": "Sushi platter", "size": "tall" } },
-        { "type": "photo", "settings": { "image_asset": "dish-fukuoka-ramen.jpg", "alt": "Fukuoka ramen", "size": "" } },
-        { "type": "photo", "settings": { "image_asset": "dish-chicken-gyoza.jpg", "alt": "Gyoza", "size": "" } },
-        { "type": "photo", "settings": { "image_asset": "dish-spicy-tuna-maki.jpg", "alt": "Spicy tuna maki", "size": "" } },
-        { "type": "photo", "settings": { "image_asset": "dish-hotpot.jpg", "alt": "Hot pot", "size": "wide" } },
-        { "type": "photo", "settings": { "image_asset": "dish-kani-salad.jpg", "alt": "Kani salad", "size": "" } },
-        { "type": "photo", "settings": { "image_asset": "dish-beef-ramen.jpg", "alt": "Beef ramen", "size": "" } }
+        {
+          "type": "photo"
+        },
+        {
+          "type": "photo"
+        },
+        {
+          "type": "photo"
+        },
+        {
+          "type": "photo"
+        },
+        {
+          "type": "photo"
+        },
+        {
+          "type": "photo"
+        }
       ]
     }
   ]
 }
 {% endschema %}
+```
