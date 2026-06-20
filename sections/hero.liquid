@@ -1,0 +1,65 @@
+<section class="hero" id="top">
+  <div class="hero-bg">
+    {%- if section.settings.image != blank -%}
+      <img src="{{ section.settings.image | image_url: width: 1920 }}" alt="{{ shop.name }}" fetchpriority="high" width="1920" height="1080">
+    {%- else -%}
+      <img src="{{ 'hero-ramen.jpg' | asset_url }}" alt="Signature ramen at {{ shop.name }}" fetchpriority="high" width="1920" height="1080">
+    {%- endif -%}
+  </div>
+
+  <div class="wrap">
+    <div class="hero-content">
+      <div class="hero-rating">
+        <span class="stars">★★★☆☆</span>
+        <span>{{ settings.rating_value | default: '3.3' }} · {{ settings.rating_count | default: '19' }} Google Reviews</span>
+      </div>
+
+      <h1>
+        {{ section.settings.title_line1 | default: 'Ramenori' }}
+        <span class="accent">{{ section.settings.title_line2 | default: 'Japanese Izakaya' }}</span>
+      </h1>
+
+      <p class="hero-sub">
+        {{ section.settings.subtitle | default: 'Hand-pulled ramen, fresh sushi, and warm izakaya comfort in the heart of Dinalupihan, Bataan. Consistent quality, generous portions, soulful flavour.' }}
+      </p>
+
+      <div class="hero-actions">
+        <a href="{{ section.settings.cta1_link | default: '#menu' }}" class="btn">{{ section.settings.cta1_text | default: 'View the Menu' }}</a>
+        <a href="{{ settings.map_url | default: '#contact' }}" class="btn btn--ghost">{{ section.settings.cta2_text | default: 'Get Directions' }}</a>
+      </div>
+
+      <div class="hero-meta">
+        <div>
+          <span>Price</span>
+          <strong>{{ settings.price_range | default: '₱200–400' }} / person</strong>
+        </div>
+        <div>
+          <span>Hours</span>
+          <strong>Opens 11 AM Daily</strong>
+        </div>
+        <div>
+          <span>Cuisine</span>
+          <strong>Ramen · Sushi · Hot Pot</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <span class="scroll-cue">Scroll</span>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Background image" },
+    { "type": "text", "id": "title_line1", "label": "Title line 1", "default": "Ramenori" },
+    { "type": "text", "id": "title_line2", "label": "Title line 2 (accent)", "default": "Japanese Izakaya" },
+    { "type": "textarea", "id": "subtitle", "label": "Subtitle" },
+    { "type": "text", "id": "cta1_text", "label": "Primary CTA text", "default": "View the Menu" },
+    { "type": "url", "id": "cta1_link", "label": "Primary CTA link" },
+    { "type": "text", "id": "cta2_text", "label": "Secondary CTA text", "default": "Get Directions" }
+  ],
+  "presets": [{ "name": "Hero" }]
+}
+{% endschema %}

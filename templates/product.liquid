@@ -1,0 +1,42 @@
+<section class="section" style="padding-top:160px;">
+  <div class="wrap">
+    <div class="product-layout">
+      <div class="product-gallery reveal">
+        {%- if product.featured_image -%}
+          <img src="{{ product.featured_image | image_url: width: 1000 }}" alt="{{ product.featured_image.alt | default: product.title }}" width="1000" height="1000">
+        {%- endif -%}
+      </div>
+
+      <div class="product-info reveal">
+        <span class="eyebrow">{{ product.type | default: 'Ramenori Kitchen' }}</span>
+        <h1 class="h-lg">{{ product.title }}</h1>
+        <div class="price">{{ product.price | money }}</div>
+
+        {%- if product.description != blank -%}
+          <div class="rte">{{ product.description }}</div>
+        {%- endif -%}
+
+        {% form 'product', product %}
+          {%- unless product.has_only_default_variant -%}
+            {%- for option in product.options_with_values -%}
+              <div class="field">
+                <label>{{ option.name }}</label>
+                <select name="options[{{ option.name | escape }}]">
+                  {%- for value in option.values -%}
+                    <option value="{{ value | escape }}">{{ value }}</option>
+                  {%- endfor -%}
+                </select>
+              </div>
+            {%- endfor -%}
+          {%- endunless -%}
+
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+
+          <button type="submit" class="btn" style="width:100%;margin-top:14px;" {% unless product.available %}disabled{% endunless %}>
+            {%- if product.available -%}{{ 'products.product.add_to_cart' | t }}{%- else -%}{{ 'products.product.sold_out' | t }}{%- endif -%}
+          </button>
+        {% endform %}
+      </div>
+    </div>
+  </div>
+</section>

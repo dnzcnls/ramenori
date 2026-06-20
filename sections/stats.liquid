@@ -1,0 +1,45 @@
+<section class="section stats">
+  <div class="wrap">
+    <div class="stats-grid reveal">
+      {%- for block in section.blocks -%}
+        <div class="stat" {{ block.shopify_attributes }}>
+          <div class="num">{{ block.settings.number }}</div>
+          <div class="label">{{ block.settings.label }}</div>
+        </div>
+      {%- else -%}
+        <div class="stat"><div class="num">19+</div><div class="label">Google Reviews</div></div>
+        <div class="stat"><div class="num">3.3★</div><div class="label">Average Rating</div></div>
+        <div class="stat"><div class="num">₱200</div><div class="label">From, Per Person</div></div>
+        <div class="stat"><div class="num">11AM</div><div class="label">Open Daily</div></div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Stats",
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "settings": [
+        { "type": "text", "id": "number", "label": "Number", "default": "19+" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Google Reviews" }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Stats",
+      "blocks": [
+        { "type": "stat", "settings": { "number": "19+", "label": "Google Reviews" } },
+        { "type": "stat", "settings": { "number": "3.3★", "label": "Average Rating" } },
+        { "type": "stat", "settings": { "number": "₱200", "label": "From, Per Person" } },
+        { "type": "stat", "settings": { "number": "11AM", "label": "Open Daily" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

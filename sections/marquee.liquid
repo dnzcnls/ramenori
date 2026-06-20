@@ -1,0 +1,20 @@
+<section class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    {%- assign items = section.settings.text | default: 'Tonkotsu Ramen,Fresh Sushi,Cheese Gyoza,Kani Salad,Hot Pot for Sharing,Spicy Tuna Maki,Authentic Izakaya' | split: ',' -%}
+    {%- for i in (1..2) -%}
+      {%- for item in items -%}
+        <span>{{ item | strip }}</span>
+      {%- endfor -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Marquee",
+  "settings": [
+    { "type": "text", "id": "text", "label": "Comma-separated items", "default": "Tonkotsu Ramen,Fresh Sushi,Cheese Gyoza,Kani Salad,Hot Pot for Sharing,Spicy Tuna Maki,Authentic Izakaya" }
+  ],
+  "presets": [{ "name": "Marquee" }]
+}
+{% endschema %}

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0d0b0a">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 64 }}">
+    {%- endif -%}
+
+    <title>
+      {{ page_title }}{% if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif %}{% if current_page != 1 %} &ndash; Page {{ current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
+    </title>
+
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+
+    <meta property="og:site_name" content="{{ shop.name }}">
+    <meta property="og:title" content="{{ page_title | escape }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ canonical_url }}">
+    {% if settings.logo != blank %}
+      <meta property="og:image" content="{{ settings.logo | image_url: width: 1200 }}">
+    {% endif %}
+    <meta name="twitter:card" content="summary_large_image">
+
+    {{ content_for_header }}
+
+    {{ 'theme.css' | asset_url | stylesheet_tag }}
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Restaurant",
+      "name": "{{ shop.name }}",
+      "servesCuisine": "Japanese",
+      "priceRange": "{{ settings.price_range | default: '₱200–400' }}",
+      "telephone": "{{ settings.phone | default: '0916 557 2097' }}",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "{{ settings.address | default: 'Number 1 Purok 2, Barangay Sta. Isabel' }}",
+        "addressLocality": "Dinalupihan",
+        "addressRegion": "Bataan",
+        "postalCode": "2110",
+        "addressCountry": "PH"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "{{ settings.rating_value | default: '3.3' }}",
+        "reviewCount": "{{ settings.rating_count | default: '19' }}"
+      }
+    }
+    </script>
+  </head>
+
+  <body class="template-{{ template.name }}">
+    {% section 'header' %}
+
+    <main id="main" role="main">
+      {{ content_for_layout }}
+    </main>
+
+    {% section 'footer' %}
+
+    {{ 'theme.js' | asset_url | script_tag }}
+  </body>
+</html>

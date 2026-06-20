@@ -1,0 +1,59 @@
+<header class="site-header" id="site-header">
+  <div class="wrap header-inner">
+    <a href="{{ routes.root_url }}" class="header-logo" aria-label="{{ shop.name }}">
+      {%- if settings.logo != blank -%}
+        <img src="{{ settings.logo | image_url: width: 200 }}" alt="{{ shop.name }}" width="60" height="52">
+      {%- else -%}
+        <span class="wordmark">{{ settings.wordmark | default: shop.name }}</span>
+      {%- endif -%}
+    </a>
+
+    <nav class="header-nav" aria-label="Primary">
+      {%- for link in section.settings.menu.links -%}
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      {%- else -%}
+        <a href="#menu">Menu</a>
+        <a href="#story">Story</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#contact">Visit</a>
+      {%- endfor -%}
+    </nav>
+
+    <div class="header-cta">
+      <a href="tel:{{ settings.phone | default: '09165572097' | remove: ' ' }}" class="header-phone">
+        ☎ {{ settings.phone | default: '0916 557 2097' }}
+      </a>
+      <a href="{{ section.settings.cta_link | default: '#contact' }}" class="btn">
+        {{ section.settings.cta_text | default: 'Reserve' }}
+      </a>
+      <button class="nav-toggle" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-nav" id="mobile-nav">
+  {%- for link in section.settings.menu.links -%}
+    <a href="{{ link.url }}">{{ link.title }}</a>
+  {%- else -%}
+    <a href="#menu">Menu</a>
+    <a href="#story">Story</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#contact">Visit</a>
+  {%- endfor -%}
+  <a href="{{ section.settings.cta_link | default: '#contact' }}" class="btn">{{ section.settings.cta_text | default: 'Reserve' }}</a>
+</div>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Navigation menu" },
+    { "type": "text", "id": "cta_text", "label": "CTA button text", "default": "Reserve" },
+    { "type": "url", "id": "cta_link", "label": "CTA link" }
+  ]
+}
+{% endschema %}

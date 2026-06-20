@@ -1,0 +1,59 @@
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        {%- if settings.logo != blank -%}
+          <img src="{{ settings.logo | image_url: width: 240 }}" alt="{{ shop.name }}" width="120" height="80">
+        {%- else -%}
+          <span class="wordmark" style="font-family:var(--font-display);font-size:1.8rem;letter-spacing:0.3em;color:var(--color-cream);">{{ settings.wordmark | default: shop.name }}</span>
+        {%- endif -%}
+        <p>{{ section.settings.about | default: 'Authentic Japanese izakaya in Dinalupihan, Bataan — ramen, sushi, gyoza and hot pot, served with warmth.' }}</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>{{ section.settings.col1_title | default: 'Explore' }}</h4>
+        <ul>
+          {%- for link in section.settings.menu1.links -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {%- else -%}
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#story">Our Story</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+          {%- endfor -%}
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>{{ section.settings.col2_title | default: 'Visit' }}</h4>
+        <ul>
+          <li><a href="{{ settings.map_url | default: '#' }}">{{ settings.address | default: 'Sta. Isabel, Dinalupihan' }}</a></li>
+          <li><a href="tel:{{ settings.phone | default: '09165572097' | remove: ' ' }}">{{ settings.phone | default: '0916 557 2097' }}</a></li>
+          <li>Open Daily · 11 AM – 10 PM</li>
+          <li>{{ settings.price_range | default: '₱200–400' }} per person</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. {{ 'sections.footer.copyright' | t }}</span>
+      <div class="footer-social">
+        {%- if settings.social_facebook != blank -%}<a href="{{ settings.social_facebook }}" aria-label="Facebook">FB</a>{%- endif -%}
+        {%- if settings.social_instagram != blank -%}<a href="{{ settings.social_instagram }}" aria-label="Instagram">IG</a>{%- endif -%}
+        {%- if settings.social_tiktok != blank -%}<a href="{{ settings.social_tiktok }}" aria-label="TikTok">TT</a>{%- endif -%}
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    { "type": "textarea", "id": "about", "label": "About text" },
+    { "type": "text", "id": "col1_title", "label": "Column 1 title", "default": "Explore" },
+    { "type": "link_list", "id": "menu1", "label": "Column 1 menu" },
+    { "type": "text", "id": "col2_title", "label": "Column 2 title", "default": "Visit" }
+  ]
+}
+{% endschema %}

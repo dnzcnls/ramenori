@@ -1,0 +1,68 @@
+<section class="section process" id="story">
+  <div class="wrap">
+    <div class="split">
+      <div class="split-media reveal">
+        <span class="frame"></span>
+        {%- if section.settings.image != blank -%}
+          <img src="{{ section.settings.image | image_url: width: 900 }}" alt="{{ section.settings.heading }}" loading="lazy" width="900" height="1125">
+        {%- else -%}
+          <img src="{{ 'chef.jpg' | asset_url }}" alt="Our chef at work" loading="lazy" width="900" height="1125">
+        {%- endif -%}
+      </div>
+
+      <div class="split-text reveal">
+        <span class="eyebrow">{{ section.settings.eyebrow | default: 'The Ramenori Way' }}</span>
+        <h2 class="h-lg">{{ section.settings.heading | default: 'Decent food, done with care' }}</h2>
+        <p class="lead" style="margin-top:20px;">{{ section.settings.body | default: 'We keep things honest: quality ingredients, consistent cooking, and portions that leave you full. Repeat guests know the ramen, sushi and kani salad never miss.' }}</p>
+
+        <div class="steps">
+          {%- for block in section.blocks -%}
+            <div class="step" {{ block.shopify_attributes }}>
+              <span class="idx">{{ forloop.index | prepend: '0' }}</span>
+              <div>
+                <h4>{{ block.settings.title }}</h4>
+                <p>{{ block.settings.text }}</p>
+              </div>
+            </div>
+          {%- else -%}
+            <div class="step"><span class="idx">01</span><div><h4>Sourced Fresh</h4><p>Daily fish and produce for sushi, salads and broth.</p></div></div>
+            <div class="step"><span class="idx">02</span><div><h4>Simmered Slow</h4><p>Tonkotsu broth cooked low and long for real depth.</p></div></div>
+            <div class="step"><span class="idx">03</span><div><h4>Served Warm</h4><p>Cosy izakaya hospitality, every single visit.</p></div></div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Process (Story)",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Ramenori Way" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Decent food, done with care" },
+    { "type": "textarea", "id": "body", "label": "Body text" }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Sourced Fresh" },
+        { "type": "textarea", "id": "text", "label": "Text" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Process (Story)",
+      "blocks": [
+        { "type": "step", "settings": { "title": "Sourced Fresh", "text": "Daily fish and produce for sushi, salads and broth." } },
+        { "type": "step", "settings": { "title": "Simmered Slow", "text": "Tonkotsu broth cooked low and long for real depth." } },
+        { "type": "step", "settings": { "title": "Served Warm", "text": "Cosy izakaya hospitality, every single visit." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

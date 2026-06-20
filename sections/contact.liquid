@@ -1,0 +1,73 @@
+<section class="section contact" id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <span class="eyebrow">{{ section.settings.eyebrow | default: 'Visit Us' }}</span>
+        <h2 class="h-lg">{{ section.settings.heading | default: 'Find Your Seat' }}</h2>
+        <p class="lead" style="margin-top:18px;">{{ section.settings.body | default: 'Drop by, call ahead, or reserve a table for your group. We open at 11 AM daily.' }}</p>
+
+        <div class="info-list">
+          <div class="info-row">
+            <span class="ic">Location</span>
+            <span class="val">{{ settings.address | default: 'Number 1 Purok 2, Barangay Sta. Isabel' }}<small>{{ settings.city | default: 'Dinalupihan, 2110 Bataan' }}</small></span>
+          </div>
+          <div class="info-row">
+            <span class="ic">Phone</span>
+            <span class="val"><a href="tel:{{ settings.phone | default: '09165572097' | remove: ' ' }}">{{ settings.phone | default: '0916 557 2097' }}</a></span>
+          </div>
+          <div class="info-row">
+            <span class="ic">Hours</span>
+            <span class="val">Open Daily · 11:00 AM – 10:00 PM<small>Kitchen closes 9:30 PM</small></span>
+          </div>
+          <div class="info-row">
+            <span class="ic">Price</span>
+            <span class="val">{{ settings.price_range | default: '₱200–400' }} per person</span>
+          </div>
+        </div>
+
+        <div style="margin-top:34px;display:flex;gap:16px;flex-wrap:wrap;">
+          <a href="{{ settings.map_url | default: '#' }}" class="btn">Get Directions</a>
+          <a href="tel:{{ settings.phone | default: '09165572097' | remove: ' ' }}" class="btn btn--ghost">Call to Reserve</a>
+        </div>
+      </div>
+
+      <div class="contact-card reveal">
+        <h3 class="h-md">Reserve a Table</h3>
+        {% form 'contact' %}
+          {%- if form.posted_successfully? -%}
+            <p class="text-gold">Thank you — we'll be in touch shortly to confirm your table.</p>
+          {%- endif -%}
+          <div class="field">
+            <label for="c-name">Name</label>
+            <input type="text" id="c-name" name="contact[name]" required>
+          </div>
+          <div class="field">
+            <label for="c-phone">Phone</label>
+            <input type="tel" id="c-phone" name="contact[phone]" required>
+          </div>
+          <div class="field">
+            <label for="c-email">Email</label>
+            <input type="email" id="c-email" name="contact[email]">
+          </div>
+          <div class="field">
+            <label for="c-msg">Party size & preferred time</label>
+            <textarea id="c-msg" name="contact[body]" required></textarea>
+          </div>
+          <button type="submit" class="btn" style="width:100%;">Request Reservation</button>
+        {% endform %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Visit Us" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Find Your Seat" },
+    { "type": "textarea", "id": "body", "label": "Body text" }
+  ],
+  "presets": [{ "name": "Contact" }]
+}
+{% endschema %}

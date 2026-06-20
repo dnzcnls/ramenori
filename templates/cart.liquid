@@ -1,0 +1,57 @@
+<section class="section" style="padding-top:160px;">
+  <div class="wrap">
+    <span class="eyebrow">{{ shop.name }}</span>
+    <h1 class="h-lg" style="margin-bottom:40px;">{{ 'cart.general.title' | t }}</h1>
+
+    {%- if cart.item_count > 0 -%}
+      {% form 'cart', cart %}
+        <table class="cart-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Qty</th>
+              <th style="text-align:right;">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {%- for item in cart.items -%}
+              <tr>
+                <td>
+                  <div style="display:flex;gap:18px;align-items:center;">
+                    {%- if item.image -%}
+                      <img src="{{ item.image | image_url: width: 120 }}" alt="{{ item.title }}" width="70" height="70" style="object-fit:cover;">
+                    {%- endif -%}
+                    <div>
+                      <a href="{{ item.url }}" style="font-family:var(--font-display);font-size:1.2rem;color:var(--color-cream);">{{ item.product.title }}</a>
+                      <div style="color:var(--color-text-muted);font-size:0.85rem;">{{ item.price | money }}</div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" style="width:64px;background:var(--color-bg);border:1px solid var(--color-line);color:var(--color-cream);padding:10px;">
+                </td>
+                <td style="text-align:right;color:var(--color-gold);font-family:var(--font-display);font-size:1.2rem;">{{ item.final_line_price | money }}</td>
+              </tr>
+            {%- endfor -%}
+          </tbody>
+        </table>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:40px;flex-wrap:wrap;gap:24px;">
+          <div>
+            <span style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--color-text-muted);">{{ 'cart.general.subtotal' | t }}</span>
+            <div style="font-family:var(--font-display);font-size:2.2rem;color:var(--color-gold);">{{ cart.total_price | money }}</div>
+          </div>
+          <div style="display:flex;gap:16px;">
+            <button type="submit" name="update" class="btn btn--ghost">Update</button>
+            <button type="submit" name="checkout" class="btn">{{ 'cart.general.checkout' | t }}</button>
+          </div>
+        </div>
+      {% endform %}
+    {%- else -%}
+      <div class="cart-empty">
+        <p class="lead" style="margin:0 auto 24px;">{{ 'cart.general.empty' | t }}</p>
+        <a href="{{ routes.all_products_collection_url }}" class="btn">{{ 'cart.general.continue_shopping' | t }}</a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>

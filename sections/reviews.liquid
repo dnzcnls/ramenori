@@ -1,0 +1,68 @@
+<section class="section reviews" id="reviews">
+  <div class="wrap">
+    <div class="reviews-top reveal">
+      <div>
+        <span class="eyebrow">{{ section.settings.eyebrow | default: 'Guest Reviews' }}</span>
+        <h2 class="h-lg">{{ section.settings.heading | default: 'Loved by Locals' }}</h2>
+      </div>
+      <div class="rating-badge">
+        <span class="score">{{ settings.rating_value | default: '3.3' }}</span>
+        <div class="meta">
+          <span class="stars">★★★☆☆</span>
+          <small>{{ settings.rating_count | default: '19' }} Google Reviews</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-grid">
+      {%- for block in section.blocks -%}
+        <article class="review-card reveal" {{ block.shopify_attributes }}>
+          <span class="quote-mark">&ldquo;</span>
+          <p>{{ block.settings.quote }}</p>
+          <div class="author">
+            <span class="avatar">{{ block.settings.name | slice: 0 }}</span>
+            <div>
+              <span class="name">{{ block.settings.name }}</span>
+              <span class="src">{{ block.settings.source | default: 'Google Review' }}</span>
+            </div>
+          </div>
+        </article>
+      {%- else -%}
+        <article class="review-card"><span class="quote-mark">&ldquo;</span><p>Ramen is decent and very filling for the price. This is where I got to experience Gyoza with cheese inside. Brilliant!</p><div class="author"><span class="avatar">M</span><div><span class="name">Marco D.</span><span class="src">Google Review</span></div></div></article>
+        <article class="review-card"><span class="quote-mark">&ldquo;</span><p>If you want decent Japanese food in Dinalupihan, this is it. Their ramen, sushi and kani salad are good. Quality is consistent.</p><div class="author"><span class="avatar">J</span><div><span class="name">Janine R.</span><span class="src">Google Review</span></div></div></article>
+        <article class="review-card"><span class="quote-mark">&ldquo;</span><p>My favourite spot for sushi or ramen. We tried their hot pot too — good size for 3–4 people. Definitely check it out!</p><div class="author"><span class="avatar">L</span><div><span class="name">Liza P.</span><span class="src">Google Review</span></div></div></article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Reviews",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Guest Reviews" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Loved by Locals" }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        { "type": "textarea", "id": "quote", "label": "Quote" },
+        { "type": "text", "id": "name", "label": "Name", "default": "Marco D." },
+        { "type": "text", "id": "source", "label": "Source", "default": "Google Review" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reviews",
+      "blocks": [
+        { "type": "review", "settings": { "quote": "Ramen is decent and very filling for the price. This is where I got to experience Gyoza with cheese inside. Brilliant!", "name": "Marco D." } },
+        { "type": "review", "settings": { "quote": "If you want decent Japanese food in Dinalupihan, this is it. Their ramen, sushi and kani salad are good. Quality is consistent.", "name": "Janine R." } },
+        { "type": "review", "settings": { "quote": "My favourite spot for sushi or ramen. We tried their hot pot too — good size for 3–4 people. Definitely check it out!", "name": "Liza P." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

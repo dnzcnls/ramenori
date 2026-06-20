@@ -1,0 +1,6 @@
+{%- comment -%} Reusable section heading {%- endcomment -%}
+<div class="section-head {% if centered %}is-centered{% endif %} reveal">
+  {%- if eyebrow != blank -%}<span class="eyebrow {% if centered %}is-centered{% endif %}">{{ eyebrow }}</span>{%- endif -%}
+  {%- if heading != blank -%}<h2 class="h-lg">{{ heading }}</h2>{%- endif -%}
+  {%- if subheading != blank -%}<p class="lead" style="margin-top:18px;">{{ subheading }}</p>{%- endif -%}
+</div>
