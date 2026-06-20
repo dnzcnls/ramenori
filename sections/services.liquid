@@ -1,43 +1,22 @@
-id="svcs01"
 <section class="section services" id="menu">
   <div class="wrap">
-
     <div class="section-head is-centered reveal">
-      <span class="eyebrow is-centered">
-        {{ section.settings.eyebrow | default: 'Menu Highlights' }}
-      </span>
-
-      <h2 class="h-lg">
-        {{ section.settings.heading | default: 'Crafted to be Savoured' }}
-      </h2>
-
-      <p class="lead" style="margin-top:18px;">
-        {{ section.settings.subheading }}
-      </p>
+      <span class="eyebrow is-centered">{{ section.settings.eyebrow | default: 'Menu Highlights' }}</span>
+      <h2 class="h-lg">{{ section.settings.heading | default: 'Crafted to be Savoured' }}</h2>
+      <p class="lead" style="margin-top:18px;">{{ section.settings.subheading | default: 'A short list of guest favourites — from rich Fukuoka tonkotsu to cheese-filled gyoza. Every bowl made to order.' }}</p>
     </div>
 
     <div class="dishes">
       {%- for block in section.blocks -%}
         <article class="dish-card reveal" {{ block.shopify_attributes }}>
-
           <div class="dish-media">
-
-            {%- if block.settings.tag != blank -%}
-              <span class="dish-tag">{{ block.settings.tag }}</span>
-            {%- endif -%}
-
+            {%- if block.settings.tag != blank -%}<span class="dish-tag">{{ block.settings.tag }}</span>{%- endif -%}
             {%- if block.settings.image != blank -%}
-              <img
-                src="{{ block.settings.image | image_url: width: 800 }}"
-                alt="{{ block.settings.title | escape }}"
-                loading="lazy"
-                width="800"
-                height="600"
-              >
+              <img src="{{ block.settings.image | image_url: width: 800 }}" alt="{{ block.settings.title }}" loading="lazy" width="800" height="600">
+            {%- elsif block.settings.image_asset != blank -%}
+              <img src="{{ block.settings.image_asset | asset_url }}" alt="{{ block.settings.title }}" loading="lazy" width="800" height="600">
             {%- endif -%}
-
           </div>
-
           <div class="dish-body">
             <div class="row">
               <h3>{{ block.settings.title }}</h3>
@@ -45,19 +24,15 @@ id="svcs01"
             </div>
             <p>{{ block.settings.description }}</p>
           </div>
-
         </article>
       {%- endfor -%}
     </div>
 
     {%- if section.settings.button_text != blank -%}
       <div style="text-align:center;margin-top:54px;" class="reveal">
-        <a href="{{ section.settings.button_link | default: '#contact' }}" class="btn btn--ghost">
-          {{ section.settings.button_text }}
-        </a>
+        <a href="{{ section.settings.button_link | default: '#contact' }}" class="btn btn--ghost">{{ section.settings.button_text }}</a>
       </div>
     {%- endif -%}
-
   </div>
 </section>
 
@@ -77,22 +52,24 @@ id="svcs01"
       "name": "Dish",
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Image" },
-        { "type": "text", "id": "tag", "label": "Tag" },
-        { "type": "text", "id": "title", "label": "Title" },
-        { "type": "text", "id": "price", "label": "Price" },
+        { "type": "text", "id": "image_asset", "label": "Asset filename (fallback)", "info": "e.g. dish-beef-ramen.jpg" },
+        { "type": "text", "id": "tag", "label": "Tag", "default": "Signature" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Fukuoka Ramen" },
+        { "type": "text", "id": "price", "label": "Price", "default": "₱320" },
         { "type": "textarea", "id": "description", "label": "Description" }
       ]
     }
   ],
-  "max_blocks": 8,
   "presets": [
     {
       "name": "Services (Menu)",
       "blocks": [
-        { "type": "dish" },
-        { "type": "dish" },
-        { "type": "dish" },
-        { "type": "dish" }
+        { "type": "dish", "settings": { "image_asset": "dish-fukuoka-ramen.jpg", "tag": "Signature", "title": "Fukuoka Ramen", "price": "₱320", "description": "Creamy Hakata-style tonkotsu broth, thin noodles and tender chashu pork." } },
+        { "type": "dish", "settings": { "image_asset": "dish-beef-ramen.jpg", "tag": "Hearty", "title": "Beef Ramen", "price": "₱340", "description": "Deep, savoury broth with slow-cooked sliced beef and spring onion." } },
+        { "type": "dish", "settings": { "image_asset": "dish-spicy-tuna-maki.jpg", "tag": "Fresh", "title": "Spicy Tuna Maki", "price": "₱260", "description": "Fresh tuna, spicy mayo and sesame, rolled to order." } },
+        { "type": "dish", "settings": { "image_asset": "dish-chicken-gyoza.jpg", "tag": "Guest Favourite", "title": "Cheese Chicken Gyoza", "price": "₱200", "description": "Pan-fried dumplings with a molten cheese surprise inside — brilliant." } },
+        { "type": "dish", "settings": { "image_asset": "dish-kani-salad.jpg", "tag": "Light", "title": "Kani Salad", "price": "₱220", "description": "Crab, crisp cucumber and tobiko in a creamy house dressing." } },
+        { "type": "dish", "settings": { "image_asset": "dish-hotpot.jpg", "tag": "For Sharing", "title": "Japanese Hot Pot", "price": "₱400", "description": "Bubbling broth, meats and vegetables — perfect for 3–4 guests." } }
       ]
     }
   ]
