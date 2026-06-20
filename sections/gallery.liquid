@@ -2,23 +2,21 @@
   <div class="wrap">
     <div class="section-head is-centered reveal">
       <span class="eyebrow is-centered">
-        {{ section.settings.eyebrow | default: 'Photos' }}
+        {{ section.settings.eyebrow }}
       </span>
       <h2 class="h-lg">
-        {{ section.settings.heading | default: 'A Taste of the Table' }}
+        {{ section.settings.heading }}
       </h2>
     </div>
 
     <div class="gallery-grid reveal">
       {%- for block in section.blocks -%}
-        <div class="gallery-item {{ block.settings.size }}" {{ block.shopify_attributes }}>
+        <div class="gallery-item{% if block.settings.size != blank %} {{ block.settings.size }}{% endif %}" {{ block.shopify_attributes }}>
           {%- if block.settings.image != blank -%}
             <img
-              src="{{ block.settings.image | image_url: width: 900 }}"
+              src="{{ block.settings.image | image_url }}"
               alt="{{ block.settings.alt | escape }}"
               loading="lazy"
-              width="900"
-              height="600"
             >
           {%- else -%}
             {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
@@ -59,8 +57,8 @@
         {
           "type": "text",
           "id": "alt",
-          "label": "Alt Text",
-          "default": "Gallery Image"
+          "label": "Alt text",
+          "default": "Gallery image"
         },
         {
           "type": "select",
@@ -89,24 +87,12 @@
     {
       "name": "Gallery",
       "blocks": [
-        {
-          "type": "photo"
-        },
-        {
-          "type": "photo"
-        },
-        {
-          "type": "photo"
-        },
-        {
-          "type": "photo"
-        },
-        {
-          "type": "photo"
-        },
-        {
-          "type": "photo"
-        }
+        { "type": "photo" },
+        { "type": "photo" },
+        { "type": "photo" },
+        { "type": "photo" },
+        { "type": "photo" },
+        { "type": "photo" }
       ]
     }
   ]
